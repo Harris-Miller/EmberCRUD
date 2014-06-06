@@ -55,7 +55,7 @@ module.exports = function(grunt) {
 				separator: ';'
 			},
 			dist: {
-				src: ['app.js', 'store.js', 'router.js', 'controllers/*.js', 'helpers/*.js', 'models/*.js', 'routes/*.js', 'views/*.js', 'templates.js'],
+				src: ['app.js', 'store.js', 'router.js', 'controllers/*.js', 'helpers/*.js', 'models/*.js', 'routes/*.js', 'views/*.js'],
 				dest: 'ember-app.js'
 			}
 		}
