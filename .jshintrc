@@ -1,0 +1,17 @@
+{
+	"validthis": true,
+	"curly": true,
+	"eqnull": true,
+	"eqeqeq": false,
+	"undef": true,
+	"expr": true,
+	"globals": {
+		"Ember": true,
+		"DS": true,
+		"module": true,
+		"App": true,
+		"jQuery": true,
+		"window": true,
+		"document": true
+	}
+}
