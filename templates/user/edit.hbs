@@ -1,0 +1,23 @@
+<div class="user-edit">
+	<label>
+		Avatar Url: 
+		{{input value=avatarUrl}}
+	</label>
+	<label>
+		First Name:
+		{{input value=firstName}}
+	</label>
+	<label>
+		Last Name: 
+		{{input value=lastName}}
+	</label>
+	<label>
+		Email: 
+		{{input value=email}}
+	</label>
+	<label>
+		Bio:
+		{{textarea value=bio}}
+	</label>
+	<button {{action "save"}}>Save</button>
+</div>

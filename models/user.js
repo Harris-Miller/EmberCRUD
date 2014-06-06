@@ -1,10 +1,15 @@
 
 App.User = DS.Model.extend({
-	name: DS.attr(),
+	firstName: DS.attr(),
+	lastName: DS.attr(),
 	email: DS.attr(),
 	bio: DS.attr(),
 	avatarUrl: DS.attr(),
-	creationDate: DS.attr()
+	creationDate: DS.attr(),
+
+	fullName: function() {
+		return this.get('firstName') + ' ' + this.get('lastName');
+	}.property('firstName', 'lastName')
 });
 
 
@@ -12,15 +17,17 @@ App.User = DS.Model.extend({
 App.User.FIXTURES = [
 	{
 		id: 1,
-		name: 'Sponge Bob',
+		firstName: 'Sponge',
+		lastName: 'Bob',
 		email: 'bob@sponge.com',
 		bio: 'Lorem ispum dolor sit amet in voluptate fugiat nulla pariatur.',
 		avatarUrl: 'http://jkneb.github.io/ember-crud/assets/images/avatars/sb.jpg',
-		createDate: 'Mon, 26 Aug 2013 20:23:43 GMT'
+		creationDate: 'Mon, 26 Aug 2013 20:23:43 GMT'
 	},
 	{
 		id: 2,
-		name: 'John David',
+		firstName: 'John',
+		lastName: 'David',
 		email: 'john@david.com',
 		bio: 'Lorem ispum dolor sit amet in voluptate fugiat nulla pariatur.',
 		avatarUrl: 'http://jkneb.github.io/ember-crud/assets/images/avatars/jk.jpg',
