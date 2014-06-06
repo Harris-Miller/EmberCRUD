@@ -5,10 +5,10 @@ module.exports = function(grunt) {
 		jshint: {
 			options: {
 				jshintrc: true,
-				ignores: ['templates.js', 'ember-app.js']
+				ignores: ['node_modules/**/*.js', 'assets/js/*.js', 'templates.js', 'ember-app.js']
 			},
 			files: {
-				src: ['*.js']
+				src: ['**/*.js']
 			}
 		},
 
