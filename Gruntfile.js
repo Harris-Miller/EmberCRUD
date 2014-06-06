@@ -45,7 +45,7 @@ module.exports = function(grunt) {
 				tasks: ['emberTemplates']
 			},
 			concat: {
-				files: ['app.js', 'router.js', 'controllers/*.js', 'helpers/*.js', 'models/*.js', 'routes/*.js', 'views/*.js', 'templates.js'],
+				files: ['app.js', 'router.js', 'controllers/*.js', 'helpers/*.js', 'models/*.js', 'routes/*.js', 'views/*.js'],
 				tasks: ['concat']
 			}
 		},
