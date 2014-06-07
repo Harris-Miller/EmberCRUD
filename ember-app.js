@@ -43,20 +43,26 @@ App.UsersController = Ember.ArrayController.extend({
 	sortProperties: ['name'],
 	sortAscending: true,
 	usersCount: function() {
-		return this.get('model.length')
+		return this.get('model.length');
 	}.property('@each')
 });;App.UsersCreateController = Ember.ObjectController.extend({
 	actions: {
 		save: function() {
-			console.log(this.get('model'));
-			console.log('action.save');
-			this.get('model').set('creationDate', new Date());
-			console.log('createRecord');
-			var newUser = this.store.createRecord('user', this.get('model'));
+			var newUser = this.store.createRecord('user', {
+				avatarUrl: this.get('avatarUrl'),
+				firstName: this.get('firstName'),
+				lastName: this.get('lastName'),
+				email: this.get('email'),
+				bio: this.get('bio'),
+				creationDate: new Date()
+			});
 			newUser.save();
 
 			this.transitionToRoute('user', newUser);
 		},
+		cancel: function() {
+			this.transitionToRoute('users');
+		}
 	}
 });;
 App.User = DS.Model.extend({
@@ -65,7 +71,7 @@ App.User = DS.Model.extend({
 	email: DS.attr(),
 	bio: DS.attr(),
 	avatarUrl: DS.attr(),
-	creationDate: DS.attr(),
+	creationDate: DS.attr('date'),
 
 	fullName: function() {
 		return this.get('firstName') + ' ' + this.get('lastName');
@@ -82,7 +88,7 @@ App.User.FIXTURES = [
 		email: 'bob@sponge.com',
 		bio: 'Lorem ispum dolor sit amet in voluptate fugiat nulla pariatur.',
 		avatarUrl: 'http://jkneb.github.io/ember-crud/assets/images/avatars/sb.jpg',
-		creationDate: 'Mon, 26 Aug 2013 20:23:43 GMT'
+		creationDate: new Date(2013, 7, 26, 20, 23, 43, 0)// 'Mon, 26 Aug 2013 20:23:43 GMT'
 	},
 	{
 		id: 2,
@@ -91,7 +97,7 @@ App.User.FIXTURES = [
 		email: 'john@david.com',
 		bio: 'Lorem ispum dolor sit amet in voluptate fugiat nulla pariatur.',
 		avatarUrl: 'http://jkneb.github.io/ember-crud/assets/images/avatars/jk.jpg',
-		creationDate: 'Fri, 07 Aug 2013 10:10:10 GMT'
+		creationDate: new Date(2013, 7, 7, 10, 10, 10, 0)// 'Fri, 07 Aug 2013 10:10:10 GMT'
 	}
 ];;App.IndexRoute = Ember.Route.extend({
 	redirect: function() {
@@ -106,11 +112,6 @@ App.User.FIXTURES = [
 		return this.store.find('user', params.user_id);
 	}
 });;App.UsersCreateRoute = Ember.Route.extend({
-	model: function() {
-		console.log('object.create');
-		return Ember.Object.create({});
-	},
-
 	renderTemplate: function() {
 		console.log('renderTemplate');
 		this.render('user.edit', {
