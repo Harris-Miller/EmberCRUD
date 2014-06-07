@@ -1,7 +1,8 @@
 
 window.App = Ember.Application.create();
 
-;App.ApplicationAdapter = DS.FixtureAdapter.extend();;
+;//App.ApplicationAdapter = DS.FixtureAdapter.extend();
+App.ApplicationAdapter = DS.LSAdapter.extend();;
 App.Router.map(function() {
 	this.resource('users', function() {
 		this.resource('user', { path: '/:user_id'}, function() {
