@@ -26,7 +26,9 @@ module.exports = function(grunt) {
 		less: {
 			styles: {
 				files: {
-					'assets/css/style.css': 'assets/less/style.less'
+					'assets/css/style.css': 'assets/less/style.less',
+					'assets/css/popups-core.css': 'assets/less/popups-core.less',
+					'assets/css/popups-bubble.css': 'assets/less/popups-bubble.less'
 				}
 			}
 		},
@@ -55,7 +57,7 @@ module.exports = function(grunt) {
 				separator: ';'
 			},
 			dist: {
-				src: ['app.js', 'store.js', 'router.js', 'controllers/*.js', 'helpers/*.js', 'models/*.js', 'routes/*.js', 'views/*.js'],
+				src: ['app.js', 'store.js', 'helpers/*.js', 'views/*.js', 'models/*.js', 'controllers/*.js', 'router.js', 'routes/*.js'],
 				dest: 'ember-app.js'
 			}
 		}

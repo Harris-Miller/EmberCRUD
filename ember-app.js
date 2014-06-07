@@ -2,16 +2,54 @@
 window.App = Ember.Application.create();
 
 ;//App.ApplicationAdapter = DS.FixtureAdapter.extend();
-App.ApplicationAdapter = DS.LSAdapter.extend();;
-App.Router.map(function() {
-	this.resource('users', function() {
-		this.resource('user', { path: '/:user_id'}, function() {
-			this.route('edit');
-		});
+App.ApplicationAdapter = DS.LSAdapter.extend();;Ember.Handlebars.helper('formatDate', function(date) {
+	return moment(date).fromNow();
+});;App.PopupView = Ember.View.extend({
+	layout: Ember.Handlebars.compile('<div class="popup">{{yeild}}</div>'),
+	classNames: ['popup'],
+	didInsertElement: function() {
+		console.log(this.controller);
+		console.log(this.element);
+		// this.$().popup({
+		// 	position: 'right'
+		// });
+	}
+});;
+App.User = DS.Model.extend({
+	firstName: DS.attr(),
+	lastName: DS.attr(),
+	email: DS.attr(),
+	bio: DS.attr(),
+	avatarUrl: DS.attr(),
+	creationDate: DS.attr('date'),
 
-		this.route('create');
-	});
-});;App.UserController = Ember.ObjectController.extend({
+	fullName: function() {
+		return this.get('firstName') + ' ' + this.get('lastName');
+	}.property('firstName', 'lastName')
+});
+
+
+
+App.User.FIXTURES = [
+	{
+		id: 1,
+		firstName: 'Sponge',
+		lastName: 'Bob',
+		email: 'bob@sponge.com',
+		bio: 'Lorem ispum dolor sit amet in voluptate fugiat nulla pariatur.',
+		avatarUrl: 'http://jkneb.github.io/ember-crud/assets/images/avatars/sb.jpg',
+		creationDate: new Date(2013, 7, 26, 20, 23, 43, 0)// 'Mon, 26 Aug 2013 20:23:43 GMT'
+	},
+	{
+		id: 2,
+		firstName: 'John',
+		lastName: 'David',
+		email: 'john@david.com',
+		bio: 'Lorem ispum dolor sit amet in voluptate fugiat nulla pariatur.',
+		avatarUrl: 'http://jkneb.github.io/ember-crud/assets/images/avatars/jk.jpg',
+		creationDate: new Date(2013, 7, 7, 10, 10, 10, 0)// 'Fri, 07 Aug 2013 10:10:10 GMT'
+	}
+];;App.UserController = Ember.ObjectController.extend({
 	deleteMode: false,
 
 	actions: {
@@ -65,44 +103,16 @@ App.UsersController = Ember.ArrayController.extend({
 			this.transitionToRoute('users');
 		}
 	}
-});;Ember.Handlebars.helper('formatDate', function(date) {
-	return moment(date).fromNow();
 });;
-App.User = DS.Model.extend({
-	firstName: DS.attr(),
-	lastName: DS.attr(),
-	email: DS.attr(),
-	bio: DS.attr(),
-	avatarUrl: DS.attr(),
-	creationDate: DS.attr('date'),
+App.Router.map(function() {
+	this.resource('users', function() {
+		this.resource('user', { path: '/:user_id'}, function() {
+			this.route('edit');
+		});
 
-	fullName: function() {
-		return this.get('firstName') + ' ' + this.get('lastName');
-	}.property('firstName', 'lastName')
-});
-
-
-
-App.User.FIXTURES = [
-	{
-		id: 1,
-		firstName: 'Sponge',
-		lastName: 'Bob',
-		email: 'bob@sponge.com',
-		bio: 'Lorem ispum dolor sit amet in voluptate fugiat nulla pariatur.',
-		avatarUrl: 'http://jkneb.github.io/ember-crud/assets/images/avatars/sb.jpg',
-		creationDate: new Date(2013, 7, 26, 20, 23, 43, 0)// 'Mon, 26 Aug 2013 20:23:43 GMT'
-	},
-	{
-		id: 2,
-		firstName: 'John',
-		lastName: 'David',
-		email: 'john@david.com',
-		bio: 'Lorem ispum dolor sit amet in voluptate fugiat nulla pariatur.',
-		avatarUrl: 'http://jkneb.github.io/ember-crud/assets/images/avatars/jk.jpg',
-		creationDate: new Date(2013, 7, 7, 10, 10, 10, 0)// 'Fri, 07 Aug 2013 10:10:10 GMT'
-	}
-];;App.IndexRoute = Ember.Route.extend({
+		this.route('create');
+	});
+});;App.IndexRoute = Ember.Route.extend({
 	redirect: function() {
 		this.transitionTo('users');
 	}
@@ -116,7 +126,6 @@ App.User.FIXTURES = [
 	}
 });;App.UsersCreateRoute = Ember.Route.extend({
 	renderTemplate: function() {
-		console.log('renderTemplate');
 		this.render('user.edit', {
 			controller: 'usersCreate'
 		});
