@@ -64,6 +64,8 @@ App.UsersController = Ember.ArrayController.extend({
 			this.transitionToRoute('users');
 		}
 	}
+});;Ember.Handlebars.helper('formatDate', function(date) {
+	return moment(date).fromNow();
 });;
 App.User = DS.Model.extend({
 	firstName: DS.attr(),

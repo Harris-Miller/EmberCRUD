@@ -3,7 +3,7 @@
 	<h2>{{fullName}}</h2>
 	<span>{{email}}</span>
 	<p>{{bio}}</p>
-	<span>Created: {{creationDate}}</span>
+	<span>Created: {{formatDate creationDate}}</span>
 	<br>
 	<button {{action "edit"}}>Edit</button>
 	<button {{action "delete"}}>Delete</button>
